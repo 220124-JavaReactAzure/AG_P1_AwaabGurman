@@ -8,18 +8,19 @@
 	<session-factory>
 
 		<!-- JDBC -->
-		<property name="hibernate.connection.username">singhp1admin</property>
-		<property name="hibernate.connection.password">Singhp1pass</property>
-		<property name="hibernate.connection.url">jdbc:sqlserver://;serverName=singhp1.database.windows.net;databaseName=p1testingdb;encrypt=true</property>
+		<property name="hibernate.connection.username">azure-sql-admin-awaab</property>
+		<property name="hibernate.connection.password">java-react-p1</property>
+		<property name="hibernate.connection.url">jdbc:sqlserver://;serverName=azure-server-p1-awaab.database.windows.net;databaseName=azure-db-p1-awaab;encrypt=true</property>
 		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
 		<!-- Hibernate Properties -->
 		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
-		<property name="hibernate.default_schema">public</property> <!-- This should be the name of your schema -->
+		<property name="hibernate.default_schema">wedding</property> <!-- This should be the name of your schema -->
 		<!-- Hibernate console output -->
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.format_sql">true</property>
 		<!-- DDL -->
-		<property name="hibernate.hbm2ddl.auto">update</property>
+		 <property name="hibernate.hbm2ddl.auto">create</property> 
+		<!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
 		<!-- Anyone remember what setting our hbm2ddl.auto to create will do? -->
 		<!-- It will wipe all tables and data, and recreate it -->
 

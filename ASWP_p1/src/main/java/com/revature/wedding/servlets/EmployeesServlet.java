@@ -57,6 +57,7 @@ public class EmployeesServlet extends HttpServlet{
 			break;
 		default:
 			List<Employee> employees = employeeServices.getAllEmployees();
+			System.out.println(employees);
 			String payload = mapper.writeValueAsString(employees);
 			writer.write(payload);
 			resp.setStatus(200);

@@ -39,7 +39,8 @@ public class EmployeeDAO implements IDAO<Employee> {
 		List<Employee> employees; 
 		try {
 			Session session = HibernateUtil.getSession();
-			 employees= session.createQuery("FROM employees").list();
+			 employees= session.createQuery("FROM Employee").list();
+			 System.out.println(employees);
 			return employees;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,0 +1,2 @@
+azure-sql-admin-awaab
+java-react-p1

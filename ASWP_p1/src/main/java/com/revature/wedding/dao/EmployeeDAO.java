@@ -6,6 +6,7 @@ package com.revature.wedding.dao;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -18,6 +19,7 @@ import com.revature.wedding.util.datasource.HibernateUtil;
  *
  */
 public class EmployeeDAO implements IDAO<Employee> {
+//	static Logger logger = Logger.getLogger(EmployeeDAO.class.getName());
 
 	@Override
 	public boolean create(Employee employee) {

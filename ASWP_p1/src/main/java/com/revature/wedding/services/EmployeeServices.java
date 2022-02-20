@@ -46,10 +46,5 @@ public class EmployeeServices {
 		
 		employeeDAO.update(employee);// updatemployeeWithSessionMethod(employee);
 	}
-	
-//	public void updatemployeeWithHQL(Employee employee) {
-//		
-//		employeeDAO.updatemployeeWithHQL(employee);
-//	}
 
 }

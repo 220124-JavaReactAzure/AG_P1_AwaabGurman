@@ -14,6 +14,8 @@ import org.hibernate.service.ServiceRegistry;
 
 import com.revature.wedding.models.Employee;
 import com.revature.wedding.models.EmployeesType;
+import com.revature.wedding.models.Service;
+import com.revature.wedding.models.ServiceType;
 
 /**
  * @author Awaab Elamin
@@ -35,7 +37,8 @@ public class HibernateUtil {
 			// ONE ADDITIONAL STEP I NEED TO INCLUDE
 			configuration.addAnnotatedClass(Employee.class);
 			configuration.addAnnotatedClass(EmployeesType.class);
-//			configuration.AddA
+			configuration.addAnnotatedClass(ServiceType.class);
+			configuration.addAnnotatedClass(Service.class);
 
 			// ServiceRegistry
 			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

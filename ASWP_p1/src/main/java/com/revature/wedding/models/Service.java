@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @Entity
 @Table(name = "service")
+@JsonIgnoreProperties(value="serviceType", allowGetters = true)
 public class Service {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +40,7 @@ public class Service {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "service_types_id", nullable = false)
 //	@Column(name = "service_types_id")
-	@JsonIgnoreProperties(value= {"id"}) 
+//	@JsonIgnoreProperties(value= {"id"}) 
 	public ServiceType serviceType;
 
 	/**

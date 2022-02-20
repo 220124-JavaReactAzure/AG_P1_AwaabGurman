@@ -38,7 +38,11 @@ public class ServiceDAO implements IDAO<Service> {
 	public List<Service> selectAll() {
 		try {
 			Session session = HibernateUtil.getSession();
-			List<Service> services = session.createQuery("FROM Service").list();
+//			SELECT * FROM service s 
+//			INNER JOIN service_types st 
+//			ON s.service_types_id = st.service_types_id ;
+			String sqlSyntax = " FROM Service S ";
+			List<Service> services = session.createQuery(sqlSyntax).list();
 			return services;
 		} catch (Exception e) {
 			e.printStackTrace();

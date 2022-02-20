@@ -34,9 +34,9 @@ public class ServiceType {
 	@Column(nullable = false)
 	private String service;
 	
-	@OneToMany(mappedBy="serviceType", fetch=FetchType.EAGER)
-	@JsonIgnoreProperties(value="serviceType")
-	private List<Service> services;
+//	@OneToMany(mappedBy="serviceType", fetch=FetchType.EAGER)
+////	@JsonIgnoreProperties(value="serviceType")
+//	private List<Service> allServices;
 
 	/**
 	 * 
@@ -53,7 +53,20 @@ public class ServiceType {
 	public ServiceType(String service, List<Service> services) {
 		super();
 		this.service = service;
-		this.services = services;
+//		this.allServices = services;
+	}
+	
+
+	/**
+	 * @param id
+	 * @param service
+	 * @param allServices
+	 */
+	public ServiceType(int id, String service, List<Service> allServices) {
+		super();
+		this.id = id;
+		this.service = service;
+//		this.allServices = allServices;
 	}
 
 	/**
@@ -87,20 +100,21 @@ public class ServiceType {
 	/**
 	 * @return the services
 	 */
-	public List<Service> getservices() {
-		return services;
-	}
+//	public List<Service> getservices() {
+//		return allServices;
+//	}
 
 	/**
 	 * @param filmography the services to set
 	 */
-	public void setservices(List<Service> services) {
-		this.services = services;
-	}
+//	public void setservices(List<Service> services) {
+//		this.allServices = services;
+//	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(services, id, service);
+		return Objects.hash(id, service);
+//		return Objects.hash(allServices, id, service);
 	}
 
 	@Override
@@ -112,13 +126,15 @@ public class ServiceType {
 		if (getClass() != obj.getClass())
 			return false;
 		ServiceType other = (ServiceType) obj;
-		return Objects.equals(services, other.services) && id == other.id
-				&& Objects.equals(service, other.service);
+		return id == other.id && Objects.equals(service, other.service);
+//		return Objects.equals(allServices, other.allServices) && id == other.id
+//				&& Objects.equals(service, other.service);
 	}
 
 	@Override
 	public String toString() {
-		return "ServiceType [id=" + id + ", service=" + service + ", services=" + services + "]";
+		return "ServiceType [id=" + id + ", service=" + service + ", services=" + "]";
+//		return "ServiceType [id=" + id + ", service=" + service + ", services=" + allServices + "]";
 	}
 	
 	

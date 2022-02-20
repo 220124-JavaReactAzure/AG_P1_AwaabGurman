@@ -42,7 +42,7 @@ public class ServiceServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PrintWriter writer = resp.getWriter();
-		// Obtains everything after the /serviceTypes
+		// Obtains everything after the /service
 		String path = req.getPathInfo();
 		if(path == null) path = "";
 		switch(path) {
@@ -81,10 +81,10 @@ public class ServiceServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json");
 		try {
-			String idParam = req.getParameter("serviceId");
+			String idParam = req.getParameter("serviceTypeId");
 			if(idParam == null) {
 				resp.setStatus(400);
-				resp.getWriter().write("Please include the query ?serviceId=# in your url");
+				resp.getWriter().write("Please include the query ?serviceTypeId=# in your url");
 				return;
 			}
 			ServiceType serviceType = serviceTypeService.getServiceTypeById(Integer.valueOf(idParam));

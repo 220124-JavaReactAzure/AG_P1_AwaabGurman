@@ -16,7 +16,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * @author Awaab Elamin
@@ -25,6 +27,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "service")
 @JsonIgnoreProperties(value="serviceType", allowGetters = true)
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 public class Service {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +45,7 @@ public class Service {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "service_types_id", nullable = false)
 //	@Column(name = "service_types_id")
-//	@JsonIgnoreProperties(value= {"id"}) 
+	@JsonIgnoreProperties(value= {"id"}) 
 	public ServiceType serviceType;
 
 	/**

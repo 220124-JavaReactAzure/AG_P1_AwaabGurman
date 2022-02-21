@@ -9,16 +9,12 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import com.revature.wedding.dao.EmployeeDAO;
 import com.revature.wedding.dao.ServiceDAO;
 import com.revature.wedding.dao.ServiceTypeDAO;
-import com.revature.wedding.models.ServiceType;
 import com.revature.wedding.services.EmployeeServices;
 import com.revature.wedding.services.ServiceServices;
 import com.revature.wedding.services.ServiceTypesServices;
@@ -44,13 +40,16 @@ public class ContextLoaderListener implements ServletContextListener {
 		
 		ServiceDAO serviceDAO = new ServiceDAO();
 		ServiceServices serviceServices = new ServiceServices(serviceDAO);
-		ServiceServlet serviceServlet = new ServiceServlet(serviceTypesServices, serviceServices, mapper);
+		ServiceServlet serviceServlet = new ServiceServlet(serviceTypesServices, serviceServices, mapper);	
 		
+	
 		
 		ServletContext context = sce.getServletContext();
 		context.addServlet("EmployeesServlet", employeeServlet).addMapping("/employees/*");
 		context.addServlet("ServiceTypeServlet", serviceTypeServlet).addMapping("/servicetype/*");
 		context.addServlet("ServiceServlet", serviceServlet).addMapping("/services/*");
+		
+		
 		
 	}
 	

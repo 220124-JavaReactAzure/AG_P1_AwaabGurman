@@ -15,7 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * @author Awaab Elamin
@@ -24,19 +26,21 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "service_types")
+@JsonIdentityInfo( // This helps witht he serialization to stop recursion with hibernate joins
+		generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ServiceType {
 
-	@Id 
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "service_types_id")
 	private int id;
-	
+
 	@Column(nullable = false)
 	private String service;
-	
-//	@OneToMany(mappedBy="serviceType", fetch=FetchType.EAGER)
-////	@JsonIgnoreProperties(value="serviceType")
-//	private List<Service> allServices;
+
+	@OneToMany(mappedBy="serviceType", fetch=FetchType.EAGER)
+	@JsonIgnoreProperties(value="serviceType")
+	private List<Service> allServices;
 
 	/**
 	 * 
@@ -53,9 +57,8 @@ public class ServiceType {
 	public ServiceType(String service, List<Service> services) {
 		super();
 		this.service = service;
-//		this.allServices = services;
+		this.allServices = services;
 	}
-	
 
 	/**
 	 * @param id
@@ -66,7 +69,7 @@ public class ServiceType {
 		super();
 		this.id = id;
 		this.service = service;
-//		this.allServices = allServices;
+		this.allServices = allServices;
 	}
 
 	/**
@@ -100,21 +103,21 @@ public class ServiceType {
 	/**
 	 * @return the services
 	 */
-//	public List<Service> getservices() {
-//		return allServices;
-//	}
+	public List<Service> getservices() {
+		return allServices;
+	}
 
 	/**
 	 * @param filmography the services to set
 	 */
-//	public void setservices(List<Service> services) {
-//		this.allServices = services;
-//	}
+	public void setservices(List<Service> services) {
+		this.allServices = services;
+	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, service);
-//		return Objects.hash(allServices, id, service);
+//		return Objects.hash(id, service);
+		return Objects.hash(allServices, id, service);
 	}
 
 	@Override
@@ -126,17 +129,15 @@ public class ServiceType {
 		if (getClass() != obj.getClass())
 			return false;
 		ServiceType other = (ServiceType) obj;
-		return id == other.id && Objects.equals(service, other.service);
-//		return Objects.equals(allServices, other.allServices) && id == other.id
-//				&& Objects.equals(service, other.service);
+//		return id == other.id && Objects.equals(service, other.service);
+		return Objects.equals(allServices, other.allServices) && id == other.id
+				&& Objects.equals(service, other.service);
 	}
 
 	@Override
 	public String toString() {
-		return "ServiceType [id=" + id + ", service=" + service + ", services=" + "]";
-//		return "ServiceType [id=" + id + ", service=" + service + ", services=" + allServices + "]";
+//		return "ServiceType [id=" + id + ", service=" + service + ", services=" + "]";
+		return "ServiceType [id=" + id + ", service=" + service + ", services=" + allServices + "]";
 	}
-	
-	
-	
+
 }

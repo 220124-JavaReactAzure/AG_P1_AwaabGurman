@@ -51,5 +51,4 @@ public class MealType {
 		this.meal_type = meal_type;
 	}
 	
-	
 }

@@ -6,6 +6,7 @@ package com.revature.wedding.models;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -24,6 +27,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  * @date Feb 18, 2022
  */
 
+@Cacheable
+//@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Entity
 @Table(name = "service_types")
 @JsonIdentityInfo( // This helps witht he serialization to stop recursion with hibernate joins
@@ -48,6 +53,14 @@ public class ServiceType {
 	public ServiceType() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param service
+	 */
+	public ServiceType(String service) {
+		super();
+		this.service = service;
 	}
 
 	/**

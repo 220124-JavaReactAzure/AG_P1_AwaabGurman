@@ -5,6 +5,7 @@ package com.revature.wedding.models;
 
 import java.util.Objects;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -24,7 +27,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  * @date 02/17/2022
  *
  */
-
+@Cacheable
+//@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Entity
 @Table(name = "employees")
 //@JsonIdentityInfo(

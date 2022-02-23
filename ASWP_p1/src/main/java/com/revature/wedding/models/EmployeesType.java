@@ -5,6 +5,8 @@ package com.revature.wedding.models;
 
 import java.util.Objects;
 
+import javax.persistence.Cacheable;
+
 /**
  * @author Awaab Elamin
  * @date Feb 17, 2022
@@ -21,13 +23,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
+@Cacheable
+//@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Entity
 @Table(name = "employees_types") // This isn't a necessary annotation, but without it, Hibernate would call the
 									// table "Movie" in the DB

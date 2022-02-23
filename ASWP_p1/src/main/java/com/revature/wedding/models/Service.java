@@ -3,8 +3,10 @@
  */
 package com.revature.wedding.models;
 
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +16,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -24,6 +29,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  * @author Awaab Elamin
  * @date Feb 18, 2022
  */
+@Cacheable
+//@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Entity
 @Table(name = "service")
 @JsonIgnoreProperties(value="serviceType", allowGetters = true)
@@ -47,6 +54,18 @@ public class Service {
 //	@Column(name = "service_types_id")
 	@JsonIgnoreProperties(value= {"id"}) 
 	public ServiceType serviceType;
+	
+//	@OneToMany(targetEntity = Wedding.class,mappedBy="venuId", fetch=FetchType.EAGER)
+//	@JsonIgnoreProperties(value="id")
+//	private List<Wedding> allWedding;
+//
+//	public List<Wedding> getAllWedding() {
+//		return allWedding;
+//	}
+//
+//	public void setAllWedding(List<Wedding> allWedding) {
+//		this.allWedding = allWedding;
+//	}
 
 	/**
 	 * 
@@ -142,7 +161,7 @@ public class Service {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, serviceCost, serviceName, serviceType);
+		return Objects.hash( id, serviceCost, serviceName, serviceType);
 	}
 
 	@Override
@@ -154,8 +173,9 @@ public class Service {
 		if (getClass() != obj.getClass())
 			return false;
 		Service other = (Service) obj;
-		return id == other.id && Objects.equals(serviceCost, other.serviceCost)
-				&& Objects.equals(serviceName, other.serviceName) && Objects.equals(serviceType, other.serviceType);
+		return  id == other.id
+				&& Objects.equals(serviceCost, other.serviceCost) && Objects.equals(serviceName, other.serviceName)
+				&& Objects.equals(serviceType, other.serviceType);
 	}
 
 	@Override

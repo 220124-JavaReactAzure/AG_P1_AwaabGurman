@@ -49,11 +49,11 @@ public class Service {
 	@Column(name = "service_cost",nullable = false) 
 	private Double serviceCost;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "service_types_id", nullable = false)
 //	@Column(name = "service_types_id")
-	@JsonIgnoreProperties(value= {"id"}) 
-	public ServiceType serviceType;
+//	@JsonIgnoreProperties(value= {"id"}) 
+	private ServiceType serviceType;
 	
 //	@OneToMany(targetEntity = Wedding.class,mappedBy="venuId", fetch=FetchType.EAGER)
 //	@JsonIgnoreProperties(value="id")

@@ -32,7 +32,6 @@ public class HibernateUtil {
 			Properties props = new Properties();
 			ClassLoader loader = Thread.currentThread().getContextClassLoader();
 			props.load(loader.getResourceAsStream("hibernate.properties"));
-
 			// Add properties to our configuration
 			configuration.setProperties(props);
 			// ONE ADDITIONAL STEP I NEED TO INCLUDE

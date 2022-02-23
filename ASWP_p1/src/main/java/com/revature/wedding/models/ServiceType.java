@@ -43,7 +43,7 @@ public class ServiceType {
 	@Column(nullable = false)
 	private String service;
 
-	@OneToMany(mappedBy="serviceType", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="service", fetch=FetchType.EAGER)
 	@JsonIgnoreProperties(value="serviceType")
 	private List<Service> allServices;
 

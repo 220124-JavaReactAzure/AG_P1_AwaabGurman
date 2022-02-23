@@ -53,9 +53,7 @@ public class ContextLoaderListener implements ServletContextListener {
 		context.addServlet("EmployeesServlet", employeeServlet).addMapping("/employees/*");
 		context.addServlet("ServiceTypeServlet", serviceTypeServlet).addMapping("/servicetype/*");
 		context.addServlet("ServiceServlet", serviceServlet).addMapping("/services/*");
-		context.addServlet("WeddingServlet", weddingServlet).addMapping("/wedding/*");
-		
-		
+		context.addServlet("WeddingServlet", weddingServlet).addMapping("/wedding/*");		
 		
 		
 	}

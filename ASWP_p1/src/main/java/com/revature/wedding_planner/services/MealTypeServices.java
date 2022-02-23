@@ -13,13 +13,13 @@ public class MealTypeServices {
 		this.mealTypeDAO = mealTypeDAO;
 	}
 	
-	public boolean addServiceType(MealType mealType) {
+	public boolean addMealType(MealType mealType) {
 		
 		return mealTypeDAO.create(mealType);
 	}
 	
 	public List<MealType> getAllMealTypes(){
-		return MealTypeDAO.selectAll();
+		return mealTypeDAO.selectAll();
 		
 	}
 	
@@ -27,7 +27,7 @@ public class MealTypeServices {
 		return mealTypeDAO.selectById(id);
 	}
 	
-	public void updateService(MealType serviceType) {
-		mealTypeDAO.update(serviceType);
+	public void updateMeal(MealType mealType) {
+		mealTypeDAO.update(mealType);
 	}
 }

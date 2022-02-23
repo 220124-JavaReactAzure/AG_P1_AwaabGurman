@@ -9,6 +9,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import com.revature.wedding_planner.models.MealType;
 import com.revature.wedding_planner.models.User;
 
 public class HibernateUtil {
@@ -26,6 +27,7 @@ public class HibernateUtil {
 			// Add properties to our configuration
 			configuration.setProperties(props);
 			// ONE ADDITIONAL STEP I NEED TO INCLUDE
+			configuration.addAnnotatedClass(MealType.class);
 			configuration.addAnnotatedClass(User.class);
 	
 			// ServiceRegistry

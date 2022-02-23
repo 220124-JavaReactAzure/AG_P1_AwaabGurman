@@ -1,11 +1,13 @@
 package com.revature.wedding_planner.daos;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import com.revature.wedding_planner.models.User;
@@ -13,12 +15,14 @@ import com.revature.wedding_planner.util.HibernateUtil;
 
 public class UserDAO {
 
-	public boolean create(User newUser) {
+	public boolean addUser(User user) {
 		try {
 			Session session = HibernateUtil.getSession();
-			session.save(newUser);
+			Transaction transaction = session.beginTransaction();
+			session.save(user);
+			transaction.commit();
 			return true;
-		} catch (HibernateException | IOException | NoResultException e) {
+		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 			return false;
 		} finally {
@@ -26,16 +30,13 @@ public class UserDAO {
 		}
 	}
 
-	public User findByUsername(String username) {
+	public List<User> getAllUsers() {
 		try {
 			Session session = HibernateUtil.getSession();
-			Query query = session.createQuery("from User u where u.username = :username ");
-
-			query.setParameter("username", username);
-
-			User user = (User) query.getSingleResult();
-			return user;
-		} catch (HibernateException | IOException | NoResultException e) {
+			//FROM User or Users?
+			List<User> users = session.createQuery("FROM User").list();
+			return users;
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		} finally {
@@ -43,16 +44,12 @@ public class UserDAO {
 		}
 	}
 
-	public Object findByEmail(String email) {
+	public User getUserById(int id) {
 		try {
 			Session session = HibernateUtil.getSession();
-			Query query = session.createQuery("from User u where u.email = :email");
-
-			query.setParameter("email", email);
-
-			User user = (User) query.getSingleResult();
+			User user = session.get(User.class, id);
 			return user;
-		} catch (HibernateException | IOException | NoResultException e) {
+		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 			return null;
 		} finally {
@@ -60,20 +57,26 @@ public class UserDAO {
 		}
 	}
 
-	public User findByUsernameAndPassword(String username, String password) {
+	public void updateUserWithSessionMethod(User user) {
 		try {
 			Session session = HibernateUtil.getSession();
-			Query query = session.createQuery("from User u where u.username = :username and u.password = :password");
-
-			query.setParameter("username", username);
-			query.setParameter("password", password);
-
-			User user = (User) query.getSingleResult();
-
-			return user;
-		} catch (HibernateException | IOException | NoResultException e) {
+			// Updates and Deletes always start with a transaction and end with a commit
+			Transaction transaction = session.beginTransaction();
+			session.merge(user);
+			transaction.commit();
+		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
-			return null;
+		} finally {
+			HibernateUtil.closeSession();
+		}
+
+	}
+
+	public void deleteUser(int id) {
+		try {
+			Session session = HibernateUtil.getSession();
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
 		} finally {
 			HibernateUtil.closeSession();
 		}

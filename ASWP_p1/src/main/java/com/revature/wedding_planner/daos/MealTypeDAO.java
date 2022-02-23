@@ -27,8 +27,7 @@ public class MealTypeDAO {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
-	public static List<MealType> selectAll() {
+	public List<MealType> selectAll() {
 		try {
 			Session session = HibernateUtil.getSession();
 			List<MealType> mealTypes = session.createQuery("FROM MealType").list();

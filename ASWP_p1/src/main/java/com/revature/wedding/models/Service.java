@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 //@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Entity
 @Table(name = "service")
-@JsonIgnoreProperties(value="serviceType", allowGetters = true)
+//@JsonIgnoreProperties(value="serviceType", allowGetters = true)
 @JsonIdentityInfo(
 		  generator = ObjectIdGenerators.PropertyGenerator.class, 
 		  property = "id")
@@ -41,7 +41,7 @@ public class Service {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "service_id")
-	private int id;
+	private int serviceId;
 	
 	@Column(name = "service_name",nullable = false) 
 	private String serviceName;
@@ -49,23 +49,14 @@ public class Service {
 	@Column(name = "service_cost",nullable = false) 
 	private Double serviceCost;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "service_types_id", nullable = false)
+//	@OneToMany(mappedBy = "serviceServiceType", fetch = FetchType.LAZY)
+//	@JoinColumn(name = "service_service_types", nullable = false)
 //	@Column(name = "service_types_id")
-//	@JsonIgnoreProperties(value= {"id"}) 
-	private ServiceType serviceType;
-	
-//	@OneToMany(targetEntity = Wedding.class,mappedBy="venuId", fetch=FetchType.EAGER)
-//	@JsonIgnoreProperties(value="id")
-//	private List<Wedding> allWedding;
-//
-//	public List<Wedding> getAllWedding() {
-//		return allWedding;
-//	}
-//
-//	public void setAllWedding(List<Wedding> allWedding) {
-//		this.allWedding = allWedding;
-//	}
+//	
+	@ManyToOne
+	@JoinColumn(name="serviceTypeService", nullable = true)
+	@JsonIgnoreProperties(value= {"id","serviceId"}) 
+	private ServiceType serviceType_Service;
 
 	/**
 	 * 
@@ -78,43 +69,27 @@ public class Service {
 	/**
 	 * @param serviceName
 	 * @param serviceCost
-	 * @param serviceType
+	 * @param serviceType_Service
 	 */
-	public Service(String serviceName, Double serviceCost, ServiceType serviceType) {
+	public Service(String serviceName, Double serviceCost, ServiceType serviceType_Service) {
 		super();
 		this.serviceName = serviceName;
 		this.serviceCost = serviceCost;
-		this.serviceType = serviceType;
+		this.serviceType_Service = serviceType_Service;
 	}
-
-	/**
-	 * @param id
-	 * @param serviceName
-	 * @param serviceCost
-	 * @param serviceType
-	 */
-	public Service(int id, String serviceName, Double serviceCost, ServiceType serviceType) {
-		super();
-		this.id = id;
-		this.serviceName = serviceName;
-		this.serviceCost = serviceCost;
-		this.serviceType = serviceType;
-	}
-	
-	
 
 	/**
 	 * @return the id
 	 */
 	public int getId() {
-		return id;
+		return serviceId;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
-		this.id = id;
+		this.serviceId = id;
 	}
 
 	/**
@@ -146,22 +121,22 @@ public class Service {
 	}
 
 	/**
-	 * @return the serviceType
+	 * @return the serviceType_Service
 	 */
-	public ServiceType getServiceType() {
-		return serviceType;
+	public ServiceType getServiceType_Service() {
+		return serviceType_Service;
 	}
 
 	/**
-	 * @param service the serviceType to set
+	 * @param serviceType_Service the serviceType_Service to set
 	 */
-	public void setServiceType(ServiceType serviceType) {
-		this.serviceType = serviceType;
+	public void setServiceType_Service(ServiceType serviceType_Service) {
+		this.serviceType_Service = serviceType_Service;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash( id, serviceCost, serviceName, serviceType);
+		return Objects.hash(serviceId, serviceCost, serviceName, serviceType_Service);
 	}
 
 	@Override
@@ -173,16 +148,16 @@ public class Service {
 		if (getClass() != obj.getClass())
 			return false;
 		Service other = (Service) obj;
-		return  id == other.id
-				&& Objects.equals(serviceCost, other.serviceCost) && Objects.equals(serviceName, other.serviceName)
-				&& Objects.equals(serviceType, other.serviceType);
+		return serviceId == other.serviceId && Objects.equals(serviceCost, other.serviceCost)
+				&& Objects.equals(serviceName, other.serviceName)
+				&& Objects.equals(serviceType_Service, other.serviceType_Service);
 	}
 
 	@Override
 	public String toString() {
-		return "Service [id=" + id + ", serviceName=" + serviceName + ", serviceCost=" + serviceCost + ", serviceType="
-				+ serviceType + "]";
+		return "Service [id=" + serviceId + ", serviceName=" + serviceName + ", serviceCost=" + serviceCost + "]";
 	}
 	
+
 	
 }

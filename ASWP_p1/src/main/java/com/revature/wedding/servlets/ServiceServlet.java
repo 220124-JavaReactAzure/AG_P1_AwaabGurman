@@ -87,7 +87,7 @@ public class ServiceServlet extends HttpServlet {
 			}
 			ServiceType serviceType = serviceTypeService.getServiceTypeById(Integer.valueOf(idParam));
 			Service newService = mapper.readValue(req.getInputStream(), Service.class);
-			newService.setServiceType(serviceType);
+			newService.setServiceType_Service(serviceType);
 			serviceServices.insertservice(newService);
 			resp.setStatus(201);
 		} catch (StreamReadException | DatabindException e) {

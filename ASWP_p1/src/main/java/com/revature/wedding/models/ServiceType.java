@@ -13,6 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,21 +33,24 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 //@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Entity
 @Table(name = "service_types")
-@JsonIdentityInfo( // This helps witht he serialization to stop recursion with hibernate joins
-		generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityInfo( // This helps witht he serialization to stop recursion with hibernate joins
+//		generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ServiceType {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "service_types_id")
-	private int id;
+	private int serviceTypeId;
 
 	@Column(nullable = false)
 	private String service;
 
-	@OneToMany(mappedBy="service", fetch=FetchType.EAGER)
-	@JsonIgnoreProperties(value="serviceType")
-	private List<Service> allServices;
+	@OneToMany(mappedBy="serviceType_Service", fetch=FetchType.LAZY)
+//	@JsonIgnoreProperties(value="serviceType")
+//	(mappedBy="serviceType", fetch=FetchType.EAGER)
+//	@JoinColumn(name="service_service_types", nullable = true)
+	@JsonIgnoreProperties(value="id")
+	private List<Service> serviceServiceType;
 
 	/**
 	 * 
@@ -57,46 +62,38 @@ public class ServiceType {
 
 	/**
 	 * @param service
+	 * @param serviceServiceType
 	 */
-	public ServiceType(String service) {
+	public ServiceType(String service, List<Service> serviceServiceType) {
 		super();
 		this.service = service;
-	}
-
-	/**
-	 * @param service
-	 * @param filmography
-	 */
-	public ServiceType(String service, List<Service> services) {
-		super();
-		this.service = service;
-		this.allServices = services;
+		this.serviceServiceType = serviceServiceType;
 	}
 
 	/**
 	 * @param id
 	 * @param service
-	 * @param allServices
+	 * @param serviceServiceType
 	 */
-	public ServiceType(int id, String service, List<Service> allServices) {
+	public ServiceType(int id, String service, List<Service> serviceServiceType) {
 		super();
-		this.id = id;
+		this.serviceTypeId = id;
 		this.service = service;
-		this.allServices = allServices;
+		this.serviceServiceType = serviceServiceType;
 	}
 
 	/**
 	 * @return the id
 	 */
 	public int getId() {
-		return id;
+		return serviceTypeId;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
-		this.id = id;
+		this.serviceTypeId = id;
 	}
 
 	/**
@@ -114,23 +111,22 @@ public class ServiceType {
 	}
 
 	/**
-	 * @return the services
+	 * @return the serviceServiceType
 	 */
-	public List<Service> getservices() {
-		return allServices;
+	public List<Service> getServiceServiceType() {
+		return serviceServiceType;
 	}
 
 	/**
-	 * @param filmography the services to set
+	 * @param serviceServiceType the serviceServiceType to set
 	 */
-	public void setservices(List<Service> services) {
-		this.allServices = services;
+	public void setServiceServiceType(List<Service> serviceServiceType) {
+		this.serviceServiceType = serviceServiceType;
 	}
 
 	@Override
 	public int hashCode() {
-//		return Objects.hash(id, service);
-		return Objects.hash(allServices, id, service);
+		return Objects.hash(serviceTypeId, service, serviceServiceType);
 	}
 
 	@Override
@@ -142,15 +138,15 @@ public class ServiceType {
 		if (getClass() != obj.getClass())
 			return false;
 		ServiceType other = (ServiceType) obj;
-//		return id == other.id && Objects.equals(service, other.service);
-		return Objects.equals(allServices, other.allServices) && id == other.id
-				&& Objects.equals(service, other.service);
+		return serviceTypeId == other.serviceTypeId && Objects.equals(service, other.service)
+				&& Objects.equals(serviceServiceType, other.serviceServiceType);
 	}
 
 	@Override
 	public String toString() {
-//		return "ServiceType [id=" + id + ", service=" + service + ", services=" + "]";
-		return "ServiceType [id=" + id + ", service=" + service + ", services=" + allServices + "]";
+		return "ServiceType [id=" + serviceTypeId + ", service=" + service + "]";
 	}
+
+	
 
 }

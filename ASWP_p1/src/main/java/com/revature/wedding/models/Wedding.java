@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name = "weddings")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@JsonIgnoreProperties(value="service", allowGetters = true)
+//@JsonIgnoreProperties(value="service", allowGetters = true)
 public class Wedding {
 
 	@Id
@@ -54,27 +54,37 @@ public class Wedding {
 //	@OneToOne(targetEntity = Service.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	@JoinColumn(referencedColumnName = "service_id", nullable = true)
 //	@JsonIgnoreProperties(value= {"id"}) 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	(mappedBy = "creator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "venuId", referencedColumnName = "service_id", nullable = true)
+	@JsonIgnoreProperties(value= {"id","serviceType_Service"})
 	private Service venuId;
 
 //	(fetch= FetchType.EAGER, cascade = CascadeType.ALL)
 //	referencedColumnName = "service_id",
 //	@OneToOne(targetEntity = Service.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "musicianId", referencedColumnName = "service_id", nullable = true)
+	@JsonIgnoreProperties(value= {"id","serviceType_Service"})
 	private Service musicianId;
 //	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "catererId", referencedColumnName = "service_id", nullable = true)
+	@JsonIgnoreProperties(value= {"id","serviceType_Service"})
 	private Service catererId;
 //	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "floristId", referencedColumnName = "service_id", nullable = true)
+	@JsonIgnoreProperties(value= {"id","serviceType_Service"})
 	private Service floristId;
 //	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "photographerId", referencedColumnName = "service_id", nullable = true)
+	@JsonIgnoreProperties(value= {"id","serviceType_Service"})
 	private Service photographerId;
 
 	/**

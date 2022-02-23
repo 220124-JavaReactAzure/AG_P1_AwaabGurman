@@ -28,6 +28,7 @@ import com.revature.wedding.services.WeddingService;
 public class WeddingServlet extends HttpServlet {
 	private final ObjectMapper mapper;
 	private final WeddingService weddingService;
+	private final ServiceServices serviceServices;
 
 	/**
 	 * @param mapper
@@ -35,10 +36,11 @@ public class WeddingServlet extends HttpServlet {
 	 * @param service
 	 * @param serviceType
 	 */
-	public WeddingServlet(ObjectMapper mapper, WeddingService weddingService) {
+	public WeddingServlet(ObjectMapper mapper, WeddingService weddingService, ServiceServices serviceServices) {
 		super();
 		this.mapper = mapper;
 		this.weddingService = weddingService;
+		this.serviceServices = serviceServices;
 	}
 
 	@Override
@@ -46,6 +48,31 @@ public class WeddingServlet extends HttpServlet {
 		resp.setContentType("application/json");
 		try {
 			Wedding newWedding = mapper.readValue(req.getInputStream(), Wedding.class);
+			String venuId = req.getParameter("venuId");
+			if(venuId != null) {
+				Service service = serviceServices.getServiceById(Integer.valueOf(venuId));
+				newWedding.setVenuId(service);
+			}
+			String musicianId = req.getParameter("musicianId");
+			if(musicianId != null) {
+				Service service = serviceServices.getServiceById(Integer.valueOf(musicianId));
+				newWedding.setVenuId(service);
+			}
+			String catererId = req.getParameter("catererId");
+			if(catererId != null) {
+				Service service = serviceServices.getServiceById(Integer.valueOf(catererId));
+				newWedding.setVenuId(service);
+			}
+			String floristId = req.getParameter("floristId");
+			if(floristId != null) {
+				Service service = serviceServices.getServiceById(Integer.valueOf(floristId));
+				newWedding.setVenuId(service);
+			}
+			String photographerId = req.getParameter("photographerId");
+			if(photographerId != null) {
+				Service service = serviceServices.getServiceById(Integer.valueOf(photographerId));
+				newWedding.setVenuId(service);
+			}
 			weddingService.insertWedding(newWedding);
 			resp.setStatus(201);
 

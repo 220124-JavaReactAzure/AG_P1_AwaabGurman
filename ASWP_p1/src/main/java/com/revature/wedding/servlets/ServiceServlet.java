@@ -38,8 +38,6 @@ public class ServiceServlet extends HttpServlet {
 		this.serviceServices = serviceServices;
 		this.serviceTypeService = serviceTypeService;
 	}
-	
-	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PrintWriter writer = resp.getWriter();
 		// Obtains everything after the /service

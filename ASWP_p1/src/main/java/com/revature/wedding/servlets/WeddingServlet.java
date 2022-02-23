@@ -4,8 +4,11 @@
 package com.revature.wedding.servlets;
 
 import java.io.IOException;
+<<<<<<< HEAD
 import java.io.PrintWriter;
 import java.util.List;
+=======
+>>>>>>> fbb288c58113f6dd11057ce0ee6f26f4e003fddb
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,10 +28,16 @@ import com.revature.wedding.services.WeddingService;
  * @author Awaab Elamin
  * @date Feb 20, 2022
  */
+<<<<<<< HEAD
 public class WeddingServlet extends HttpServlet {
 	private final ObjectMapper mapper;
 	private final WeddingService weddingService;
 
+=======
+public class WeddingServlet extends HttpServlet{
+	private final ObjectMapper mapper;
+	private final WeddingService weddingService;
+>>>>>>> fbb288c58113f6dd11057ce0ee6f26f4e003fddb
 	/**
 	 * @param mapper
 	 * @param weddingService
@@ -40,7 +49,11 @@ public class WeddingServlet extends HttpServlet {
 		this.mapper = mapper;
 		this.weddingService = weddingService;
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> fbb288c58113f6dd11057ce0ee6f26f4e003fddb
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json");
@@ -48,17 +61,26 @@ public class WeddingServlet extends HttpServlet {
 			Wedding newWedding = mapper.readValue(req.getInputStream(), Wedding.class);
 			weddingService.insertWedding(newWedding);
 			resp.setStatus(201);
+<<<<<<< HEAD
 
+=======
+			
+>>>>>>> fbb288c58113f6dd11057ce0ee6f26f4e003fddb
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);
 			resp.getWriter().write("JSON threw exception");
 			e.printStackTrace();
+<<<<<<< HEAD
 		} catch (Exception e) {
+=======
+		}catch (Exception e) {
+>>>>>>> fbb288c58113f6dd11057ce0ee6f26f4e003fddb
 			resp.setStatus(500);
 			resp.getWriter().write("Some other random exception did not persist");
 			e.printStackTrace();
 		}
 	}
+<<<<<<< HEAD
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PrintWriter writer = resp.getWriter();
@@ -70,4 +92,8 @@ public class WeddingServlet extends HttpServlet {
 		writer.write(payload);
 		resp.setStatus(200);
 	}
+=======
+	
+	
+>>>>>>> fbb288c58113f6dd11057ce0ee6f26f4e003fddb
 }

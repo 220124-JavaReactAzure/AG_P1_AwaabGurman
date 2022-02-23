@@ -24,7 +24,10 @@ public class WeddingDAO implements IDAO<Wedding>{
 	public boolean create(Wedding wedding) {
 		try {
 			Session session = HibernateUtil.getSession();
+<<<<<<< HEAD
 			System.out.println("wedding data: "+ wedding);
+=======
+>>>>>>> fbb288c58113f6dd11057ce0ee6f26f4e003fddb
 			session.save(wedding);
 			return true;
 		} catch (HibernateException | IOException e) {

@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 D:\Awaab\AG_P1_AwaabGurman\ASWP_p1\src\test\java\com\revature\wedding\dao\WeddingDAOTest.java
 D:\Awaab\AG_P1_AwaabGurman\ASWP_p1\src\test\java\com\revature\wedding\util\datasource\HibernateUtilTestSuite.java
 D:\Awaab\AG_P1_AwaabGurman\ASWP_p1\src\test\java\com\revature\wedding\util\datasource\ConnectionFactoryTestSuite.java
 D:\Awaab\AG_P1_AwaabGurman\ASWP_p1\src\test\java\com\revature\wedding\models\WeddingTest.java
+=======
+D:\Awaab\AG_P1_AwaabGurman\ASWP_p1\src\test\java\com\revature\wedding\util\datasource\HibernateUtilTestSuite.java
+D:\Awaab\AG_P1_AwaabGurman\ASWP_p1\src\test\java\com\revature\wedding\util\datasource\ConnectionFactoryTestSuite.java
+>>>>>>> fbb288c58113f6dd11057ce0ee6f26f4e003fddb

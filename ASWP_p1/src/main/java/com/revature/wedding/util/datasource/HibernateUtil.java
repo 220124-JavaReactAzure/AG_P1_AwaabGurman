@@ -16,6 +16,7 @@ import com.revature.wedding.models.Employee;
 import com.revature.wedding.models.EmployeesType;
 import com.revature.wedding.models.Service;
 import com.revature.wedding.models.ServiceType;
+import com.revature.wedding.models.Wedding;
 
 /**
  * @author Awaab Elamin
@@ -39,6 +40,7 @@ public class HibernateUtil {
 			configuration.addAnnotatedClass(EmployeesType.class);
 			configuration.addAnnotatedClass(ServiceType.class);
 			configuration.addAnnotatedClass(Service.class);
+			configuration.addAnnotatedClass(Wedding.class);
 
 			// ServiceRegistry
 			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
@@ -46,7 +48,6 @@ public class HibernateUtil {
 
 			sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 		}
-
 		if (session == null) {
 			session = sessionFactory.openSession();
 		}

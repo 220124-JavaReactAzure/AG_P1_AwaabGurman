@@ -53,9 +53,9 @@ public class Service {
 //	@JoinColumn(name = "service_service_types", nullable = false)
 //	@Column(name = "service_types_id")
 //	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="serviceTypeService", nullable = true)
-	@JsonIgnoreProperties(value= {"id","serviceId"}) 
+	@JsonIgnoreProperties(value= {"id"}) 
 	private ServiceType serviceType_Service;
 
 	/**

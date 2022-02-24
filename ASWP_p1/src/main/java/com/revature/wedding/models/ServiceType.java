@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -45,11 +46,11 @@ public class ServiceType {
 	@Column(nullable = false)
 	private String service;
 
-	@OneToMany(mappedBy="serviceType_Service", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="serviceType_Service", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 //	@JsonIgnoreProperties(value="serviceType")
 //	(mappedBy="serviceType", fetch=FetchType.EAGER)
 //	@JoinColumn(name="service_service_types", nullable = true)
-	@JsonIgnoreProperties(value="id")
+	@JsonIgnoreProperties(value={"id", "serviceServiceType","serviceTypeId"})
 	private List<Service> serviceServiceType;
 
 	/**

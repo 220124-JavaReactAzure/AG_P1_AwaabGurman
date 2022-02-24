@@ -50,34 +50,34 @@ public class Wedding {
 	@Column(name = "wedding_budget", nullable = false)
 	private double budget;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "venuId", referencedColumnName = "service_id", nullable = true)
-	@JsonIgnoreProperties(value= {"id","serviceType_Service"})
+	@JsonIgnoreProperties(value= {"serviceType_Service","service_types_id"})
 	private Service venuId;
 
 //	(fetch= FetchType.EAGER, cascade = CascadeType.ALL)
 //	referencedColumnName = "service_id",
 //	@OneToOne(targetEntity = Service.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "musicianId", referencedColumnName = "service_id", nullable = true)
 	@JsonIgnoreProperties(value= {"id","serviceType_Service"})
 	private Service musicianId;
 //	
 //	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "catererId", referencedColumnName = "service_id", nullable = true)
 	@JsonIgnoreProperties(value= {"id","serviceType_Service"})
 	private Service catererId;
 //	
 //	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "floristId", referencedColumnName = "service_id", nullable = true)
 	@JsonIgnoreProperties(value= {"id","serviceType_Service"})
 	private Service floristId;
 //	
 //	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "photographerId", referencedColumnName = "service_id", nullable = true)
 	@JsonIgnoreProperties(value= {"id","serviceType_Service"})
 	private Service photographerId;

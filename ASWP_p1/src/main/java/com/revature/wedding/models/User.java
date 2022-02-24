@@ -48,8 +48,7 @@ public class User {
 	private int plus_one_meal_id;
 	
 	
-	@OneToOne(cascade = CascadeType.REMOVE)
-	@OnDelete(action = OnDeleteAction.CASCADE)
+	@OneToOne
 	@JoinColumn(name = "wedd_Id", referencedColumnName = "wedding_id", nullable = true)
 	private Wedding wedd_id;
 	

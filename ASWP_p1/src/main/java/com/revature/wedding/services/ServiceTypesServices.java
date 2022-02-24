@@ -43,5 +43,9 @@ public class ServiceTypesServices {
 	public void updateService(ServiceType serviceType) {
 		serviceTypeDAO.update(serviceType);
 	}
+	
+	public boolean deleteServiceType(int id) {		
+		return serviceTypeDAO.delete(id);
+	}
 
 }

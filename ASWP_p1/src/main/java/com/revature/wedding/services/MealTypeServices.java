@@ -28,6 +28,10 @@ public class MealTypeServices {
 	}
 	
 	public void updateMeal(MealType mealType) {
+//		mealType.
 		mealTypeDAO.update(mealType);
+	}
+	public boolean deleteMealType(int id) {		
+		return mealTypeDAO.delete(id);
 	}
 }

@@ -39,4 +39,7 @@ public class ServiceServices {
 	public void updateService(Service service) {
 		serviceDAO.update(service);
 	}
+	public boolean deleteService(int id) {		
+		return serviceDAO.delete(id);
+	}
 }

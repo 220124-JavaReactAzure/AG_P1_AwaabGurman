@@ -5,6 +5,7 @@ package com.revature.wedding.services;
 
 import java.util.List;
 
+import com.revature.wedding.dao.UserDAO;
 import com.revature.wedding.dao.WeddingDAO;
 import com.revature.wedding.models.Wedding;
 
@@ -14,13 +15,17 @@ import com.revature.wedding.models.Wedding;
  */
 public class WeddingService {
 	private final WeddingDAO weddingDAO;
+	
+	//we need the userDao for deleting method
+	private final UserDAO userDao;
 
 	/**
 	 * @param weddingDAO
 	 */
-	public WeddingService(WeddingDAO weddingDAO) {
+	public WeddingService(WeddingDAO weddingDAO, UserDAO userDao) {
 		super();
 		this.weddingDAO = weddingDAO;
+		this.userDao = userDao;
 	}
 	
 	public boolean insertWedding(Wedding wedding) {
@@ -40,6 +45,8 @@ public class WeddingService {
 	}
 	
 	public boolean deleteWedding(int id) {
+		//Before delete wedding, we need to delete all attendees from user table
+		
 		return weddingDAO.delete(id);
 	}
 

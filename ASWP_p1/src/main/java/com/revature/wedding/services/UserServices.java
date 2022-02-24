@@ -35,4 +35,12 @@ public class UserServices {
 		
 		userDAO.updateUserWithSessionMethod(user);
 	}
+	
+	public boolean deleteUserById(int id) {
+		return userDAO.delete(id);
+	}
+	
+	public boolean deleteUserByWddingId(int id) {
+		return userDAO.deleteByWeddingId(id);
+	}
 }

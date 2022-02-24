@@ -87,11 +87,20 @@ public class ServiceDAO implements IDAO<Service> {
 	public boolean delete(int id) {
 		try {
 			Session session = HibernateUtil.getSession();
-			return true;
+			Transaction transaction = session.beginTransaction();
+			String sqlSyntax = "delete Service st where st.serviceId = :Id";
+			org.hibernate.query.Query query = session.createQuery(sqlSyntax);
+			query.setParameter("Id", id);
+			int value = query.executeUpdate();
+			transaction.commit();
+			return value > 0;
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 			return false;
-		} finally {
+		}catch(Exception e) {
+			return false;
+		} 
+		finally {
 			HibernateUtil.closeSession();
 		}
 

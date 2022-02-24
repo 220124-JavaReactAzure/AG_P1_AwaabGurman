@@ -89,16 +89,16 @@ public class WeddingDAO implements IDAO<Wedding>{
 	@Override
 	public boolean delete(int id) {
 		try {
-			Session session = HibernateUtil.getSession();
-			Transaction transaction = session.beginTransaction();
-			String sqlSyntax = "delete Wedding where weddingId = :weddingId";
-			org.hibernate.query.Query query = session.createQuery(sqlSyntax);
-			query.setParameter("weddingId", id);
-			int value = query.executeUpdate();
-			transaction.commit();
-			return value > 0;
+				Session session = HibernateUtil.getSession();
+				Transaction transaction = session.beginTransaction();
+				String sqlSyntax = "delete Wedding where weddingId = :weddingId";
+				org.hibernate.query.Query weddingQuery = session.createQuery(sqlSyntax);
+				weddingQuery.setParameter("weddingId", id);
+				int value = weddingQuery.executeUpdate();
+				transaction.commit();
+				return value > 0;
 		} catch (HibernateException | IOException e) {
-			e.printStackTrace();
+			e.printStackTrace();			
 			return false;
 		} finally {
 			HibernateUtil.closeSession();

@@ -10,6 +10,8 @@ import org.hibernate.Transaction;
 import com.revature.wedding.models.MealType;
 import com.revature.wedding.util.datasource.HibernateUtil;
 
+import javassist.bytecode.stackmap.BasicBlock.Catch;
+
 
 public class MealTypeDAO {
 
@@ -77,6 +79,9 @@ public class MealTypeDAO {
 			transaction.commit();
 			return true;
 		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
+			return false;
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		} finally {

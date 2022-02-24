@@ -73,11 +73,37 @@ public class UserDAO {
 
 	}
 
-	public void deleteUser(int id) {
+	public boolean delete(int id) {
 		try {
 			Session session = HibernateUtil.getSession();
+			Transaction transaction = session.beginTransaction();
+			String sqlSyntax = "delete User where user_id = :user_id";
+			org.hibernate.query.Query query = session.createQuery(sqlSyntax);
+			query.setParameter("user_id", id);
+			int value = query.executeUpdate();
+			transaction.commit();
+			return value > 0;
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
+			return false;
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
+
+	public boolean deleteByWeddingId(int id) {
+		try {
+			Session session = HibernateUtil.getSession();
+			Transaction transaction = session.beginTransaction();
+			String sqlSyntax = "delete User where wedd_id = :wedding_Id";
+			org.hibernate.query.Query query = session.createQuery(sqlSyntax);
+			query.setParameter("wedding_Id", id);
+			int value = query.executeUpdate();
+			transaction.commit();
+			return value > 0;
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
+			return false;
 		} finally {
 			HibernateUtil.closeSession();
 		}

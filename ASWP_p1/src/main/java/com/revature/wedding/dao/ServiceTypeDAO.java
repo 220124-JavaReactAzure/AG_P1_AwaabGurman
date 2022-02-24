@@ -82,12 +82,13 @@ public class ServiceTypeDAO implements IDAO<ServiceType> {
 	public boolean delete(int id) {
 		try {
 			Session session = HibernateUtil.getSession();
-			// Updates and Deletes always start with a transaction and end with a commit
 			Transaction transaction = session.beginTransaction();
-//			session.merge(service);
-			session.delete(session.get(ServiceType.class, id));
+			String sqlSyntax = "delete ServiceType st where st.serviceTypeId = :serviceTypeId";
+			org.hibernate.query.Query weddingQuery = session.createQuery(sqlSyntax);
+			weddingQuery.setParameter("serviceTypeId", id);
+			int value = weddingQuery.executeUpdate();
 			transaction.commit();
-			return true;
+			return value > 0;
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 			return false;
@@ -95,5 +96,4 @@ public class ServiceTypeDAO implements IDAO<ServiceType> {
 			HibernateUtil.closeSession();
 		}
 	}
-
 }

@@ -120,7 +120,31 @@ public class ServiceServlet extends HttpServlet {
 	
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doDelete(req, resp);
+		resp.setContentType("application/json");
+		try {
+			String serviceId = req.getParameter("serviceId");
+			if (serviceId == null) {
+				resp.setStatus(400);
+				resp.getWriter().write("Please include the query ? serviceId = # in your url");
+				return;
+			}
+			boolean value = serviceServices.deleteService(Integer.valueOf(serviceId));
+			if (value) {
+				resp.setStatus(200);
+				resp.getWriter().write("Service deleted");
+			}else {
+				resp.setStatus(201);
+				resp.getWriter().write("this service still has wedding reguest not done yet. For that "
+						+ "we can't delete it");
+			}
+		} catch (StreamReadException | DatabindException e) {
+			resp.setStatus(400);
+			resp.getWriter().write("JSON threw exception");
+			e.printStackTrace();
+		} catch (Exception e) {
+			resp.setStatus(500);
+			resp.getWriter().write("Some other random exception did not persist");
+			e.printStackTrace();
+		}
 	}
 }

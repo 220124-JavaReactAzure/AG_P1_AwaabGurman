@@ -26,35 +26,36 @@ import com.revature.wedding.services.ServiceTypesServices;
 public class ServiceTypeServlet extends HttpServlet {
 	private final ObjectMapper mapper;
 	private final ServiceTypesServices serviceTypesServices;
+
 	/**
 	 * @param mapper
 	 * @param serviceTypeDAO
 	 */
-	public ServiceTypeServlet(ServiceTypesServices serviceTypesServices,ObjectMapper mapper) {
+	public ServiceTypeServlet(ServiceTypesServices serviceTypesServices, ObjectMapper mapper) {
 		super();
 		this.mapper = mapper;
 		this.serviceTypesServices = serviceTypesServices;
 	}
-	
-	
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PrintWriter writer = resp.getWriter();
 		// Obtains everything after the /serviceTypes
 		String path = req.getPathInfo();
-		if(path == null) path = "";
-		switch(path) {
+		if (path == null)
+			path = "";
+		switch (path) {
 		case "/ID":
 			try {
 				String idParam = req.getParameter("serviceTypeId");
-				if(idParam == null) {
+				if (idParam == null) {
 					resp.setStatus(400);
 					writer.write("Please include the query ?serviceTypeId=# in your url");
 					return;
 				}
-				
+
 				int serviceTypeId = Integer.valueOf(idParam);
 				ServiceType serviceType = serviceTypesServices.getServiceTypeById(serviceTypeId);
-				if(serviceType == null) {
+				if (serviceType == null) {
 					resp.setStatus(500);
 					return;
 				}
@@ -73,14 +74,14 @@ public class ServiceTypeServlet extends HttpServlet {
 			break;
 		}
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json");
 		try {
 			ServiceType newServiceType = mapper.readValue(req.getInputStream(), ServiceType.class);
 			boolean wasReg = serviceTypesServices.addServiceType(newServiceType);
-			if(wasReg) {
+			if (wasReg) {
 				resp.setStatus(201);
 			} else {
 				resp.setStatus(500);
@@ -96,14 +97,14 @@ public class ServiceTypeServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			ServiceType updatedServiceType = mapper.readValue(req.getInputStream(), ServiceType.class);
-			//serviceTypeServices.updateServiceTypeWithHQL(updatedServiceType);
+			// serviceTypeServices.updateServiceTypeWithHQL(updatedServiceType);
 			serviceTypesServices.updateService(updatedServiceType);
-			resp.setStatus(204);	
+			resp.setStatus(204);
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);
 			resp.getWriter().write("JSON threw exception");
@@ -114,10 +115,11 @@ public class ServiceTypeServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doDelete(req, resp);
+		resp.setStatus(200);
+		resp.getWriter().write("ServiceType is not able to deleted, beacuse we have many services on a relation with"
+				+ ". you can make update to it");
 	}
 }

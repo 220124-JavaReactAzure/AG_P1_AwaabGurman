@@ -106,8 +106,34 @@ public class MealServlet extends HttpServlet {
 	
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doDelete(req, resp);
+		resp.setContentType("application/json");
+		try {
+			String serviceId = req.getParameter("mealId");
+			if (serviceId == null) {
+				resp.setStatus(400);
+				resp.getWriter().write("Please include the query ? mealId = # in your url");
+				return;
+			}
+			boolean value = mealTypeServices.deleteMealType(Integer.valueOf(serviceId));
+			if (value) {
+				resp.setStatus(200);
+				resp.getWriter().write("meal deleted");
+			}else {
+				resp.setStatus(200);
+				resp.getWriter().write("This meal is not able to deleted, beacuse we have many users on a relation with"
+						+ ". you can make update to it");
+			}
+		} catch (StreamReadException | DatabindException e) {
+			resp.setStatus(400);
+			resp.getWriter().write("JSON threw exception");
+			e.printStackTrace();
+		} catch (Exception e) {
+			resp.setStatus(500);
+			resp.getWriter().write("Some other random exception did not persist");
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 }

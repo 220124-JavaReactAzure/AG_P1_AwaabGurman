@@ -17,9 +17,11 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.wedding.models.Service;
 import com.revature.wedding.models.ServiceType;
+import com.revature.wedding.models.User;
 import com.revature.wedding.models.Wedding;
 import com.revature.wedding.services.ServiceServices;
 import com.revature.wedding.services.WeddingService;
+import com.revature.wedding.services.UserServices;
 
 /**
  * @author Awaab Elamin
@@ -29,6 +31,7 @@ public class WeddingServlet extends HttpServlet {
 	private final ObjectMapper mapper;
 	private final WeddingService weddingService;
 	private final ServiceServices serviceServices;
+	private final UserServices userService;
 
 	/**
 	 * @param mapper
@@ -36,11 +39,12 @@ public class WeddingServlet extends HttpServlet {
 	 * @param service
 	 * @param serviceType
 	 */
-	public WeddingServlet(ObjectMapper mapper, WeddingService weddingService, ServiceServices serviceServices) {
+	public WeddingServlet(ObjectMapper mapper, WeddingService weddingService, ServiceServices serviceServices, UserServices userService) {
 		super();
 		this.mapper = mapper;
 		this.weddingService = weddingService;
 		this.serviceServices = serviceServices;
+		this.userService = userService;
 	}
 
 	@Override
@@ -111,7 +115,26 @@ public class WeddingServlet extends HttpServlet {
 			if (value) {
 				resp.setStatus(200);
 				resp.getWriter().write("weeding deleted");
+			}else {
+				resp.setStatus(201);
+				resp.getWriter().write("all attendees should delete before deleting the wedding");
 			}
+		} catch (StreamReadException | DatabindException e) {
+			resp.setStatus(400);
+			resp.getWriter().write("JSON threw exception");
+			e.printStackTrace();
+		} catch (Exception e) {
+			resp.setStatus(500);
+			resp.getWriter().write("Some other random exception did not persist");
+			e.printStackTrace();
+		}
+	}
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		try {
+			Wedding updatedWedding = mapper.readValue(req.getInputStream(), Wedding.class);
+			weddingService.updateWedding(updatedWedding);
+			resp.setStatus(204);	
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);
 			resp.getWriter().write("JSON threw exception");

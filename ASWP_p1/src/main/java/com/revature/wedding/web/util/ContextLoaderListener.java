@@ -13,17 +13,24 @@ import javax.servlet.annotation.WebListener;
 
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import com.revature.wedding.dao.EmployeeDAO;
+import com.revature.wedding.dao.MealTypeDAO;
 import com.revature.wedding.dao.ServiceDAO;
 import com.revature.wedding.dao.ServiceTypeDAO;
+import com.revature.wedding.dao.UserDAO;
 import com.revature.wedding.dao.WeddingDAO;
 import com.revature.wedding.services.EmployeeServices;
+import com.revature.wedding.services.MealTypeServices;
 import com.revature.wedding.services.ServiceServices;
 import com.revature.wedding.services.ServiceTypesServices;
+import com.revature.wedding.services.UserServices;
 import com.revature.wedding.services.WeddingService;
 import com.revature.wedding.servlets.EmployeesServlet;
+import com.revature.wedding.servlets.MealServlet;
 import com.revature.wedding.servlets.ServiceServlet;
 import com.revature.wedding.servlets.ServiceTypeServlet;
+import com.revature.wedding.servlets.UserServlet;
 import com.revature.wedding.servlets.WeddingServlet;
+
 @WebListener
 public class ContextLoaderListener implements ServletContextListener {
 
@@ -48,13 +55,22 @@ public class ContextLoaderListener implements ServletContextListener {
 		WeddingDAO weddingDAO = new WeddingDAO();
 		WeddingService weddingService = new WeddingService(weddingDAO);
 		WeddingServlet weddingServlet = new WeddingServlet(mapper, weddingService, serviceServices);	
+
+		MealTypeDAO mealTypeDAO = new MealTypeDAO();
+		MealTypeServices mealTypeServices = new MealTypeServices(mealTypeDAO);
+		MealServlet mealTypeServlet = new MealServlet(mapper, mealTypeServices);
+		
+		UserDAO userDAO = new UserDAO();
+		UserServices userServices = new UserServices(userDAO);
+		UserServlet userServlet = new UserServlet(weddingService,userServices, mapper);			
 		
 		ServletContext context = sce.getServletContext();
 		context.addServlet("EmployeesServlet", employeeServlet).addMapping("/employees/*");
 		context.addServlet("ServiceTypeServlet", serviceTypeServlet).addMapping("/servicetype/*");
 		context.addServlet("ServiceServlet", serviceServlet).addMapping("/services/*");
 		context.addServlet("WeddingServlet", weddingServlet).addMapping("/wedding/*");		
-		
+		context.addServlet("UserServlet", userServlet).addMapping("/users/*");
+		context.addServlet("MealTypeServlet", mealTypeServlet).addMapping("/mealtype/*");
 		
 	}
 	

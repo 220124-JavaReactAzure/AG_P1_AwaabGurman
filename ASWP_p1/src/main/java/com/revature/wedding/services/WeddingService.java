@@ -38,5 +38,9 @@ public class WeddingService {
 	public boolean updateWedding(Wedding wedding) {
 		return weddingDAO.update(wedding);
 	}
+	
+	public boolean deleteWedding(int id) {
+		return weddingDAO.delete(id);
+	}
 
 }

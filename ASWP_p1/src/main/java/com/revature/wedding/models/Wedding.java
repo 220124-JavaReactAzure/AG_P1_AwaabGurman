@@ -3,6 +3,7 @@
  */
 package com.revature.wedding.models;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -49,11 +50,6 @@ public class Wedding {
 	@Column(name = "wedding_budget", nullable = false)
 	private double budget;
 
-//	(targetEntity = Service.class,fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@OneToOne(targetEntity = Service.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	@JoinColumn(referencedColumnName = "service_id", nullable = true)
-//	@JsonIgnoreProperties(value= {"id"}) 
-//	(mappedBy = "creator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@OneToOne
 	@JoinColumn(name = "venuId", referencedColumnName = "service_id", nullable = true)
 	@JsonIgnoreProperties(value= {"id","serviceType_Service"})
@@ -85,6 +81,10 @@ public class Wedding {
 	@JoinColumn(name = "photographerId", referencedColumnName = "service_id", nullable = true)
 	@JsonIgnoreProperties(value= {"id","serviceType_Service"})
 	private Service photographerId;
+	
+//	@OneToMany(mappedBy="wedd_id", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JsonIgnoreProperties(value="weddingId")
+//	private List<User> attendees;
 
 	
 	public Wedding() {

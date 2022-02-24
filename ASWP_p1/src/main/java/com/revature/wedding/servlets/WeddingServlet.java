@@ -97,4 +97,29 @@ public class WeddingServlet extends HttpServlet {
 		writer.write(payload);
 		resp.setStatus(200);
 	}
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("application/json");
+		try {
+			String weddingId = req.getParameter("weddingId");
+			if(weddingId == null) {
+				resp.setStatus(400);
+				resp.getWriter().write("Please include the query ? weddingId=# in your url");
+				return;
+			}
+			boolean value = weddingService.deleteWedding(Integer.valueOf(weddingId));
+			if (value) {
+				resp.setStatus(200);
+				resp.getWriter().write("weeding deleted");
+			}
+		} catch (StreamReadException | DatabindException e) {
+			resp.setStatus(400);
+			resp.getWriter().write("JSON threw exception");
+			e.printStackTrace();
+		} catch (Exception e) {
+			resp.setStatus(500);
+			resp.getWriter().write("Some other random exception did not persist");
+			e.printStackTrace();
+		}
+	}
 }

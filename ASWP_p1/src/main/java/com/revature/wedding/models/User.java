@@ -15,6 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -44,9 +47,10 @@ public class User {
 	@Column(name = "plus_one_meal_id",nullable = false) 
 	private int plus_one_meal_id;
 	
-	@OneToOne
+	
+	@OneToOne(cascade = CascadeType.REMOVE)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "wedd_Id", referencedColumnName = "wedding_id", nullable = true)
-//	@Column(name = "wedding_id",nullable = false) 
 	private Wedding wedd_id;
 	
 	@Column(name = "betrothed",nullable = false) 
@@ -56,6 +60,8 @@ public class User {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "mealId", nullable = true, referencedColumnName = "meal_id")
 	private MealType mealType;
+	
+	
 	
 	public User() {
 		super();

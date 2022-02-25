@@ -1,0 +1,5 @@
+com\revature\wedding\models\WeddingTest.class
+com\revature\wedding\util\datasource\ConnectionFactoryTestSuite.class
+com\revature\wedding\util\datasource\HibernateUtilTestSuite.class
+com\revature\wedding\exception\AuthenticationExceptionTest.class
+com\revature\wedding\dao\WeddingDAOTest.class

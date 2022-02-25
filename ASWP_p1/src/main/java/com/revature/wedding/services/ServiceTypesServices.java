@@ -40,7 +40,7 @@ public class ServiceTypesServices {
 		ServiceType serviceType = serviceTypeDAO.selectById(id);
 		return serviceTypeDAO.selectById(id);
 	}
-	public void updateService(ServiceType serviceType) {
+	public void updateServiceType(ServiceType serviceType) {
 		serviceTypeDAO.update(serviceType);
 	}
 	

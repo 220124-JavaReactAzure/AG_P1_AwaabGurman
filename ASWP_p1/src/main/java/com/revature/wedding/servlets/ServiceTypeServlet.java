@@ -103,7 +103,7 @@ public class ServiceTypeServlet extends HttpServlet {
 		try {
 			ServiceType updatedServiceType = mapper.readValue(req.getInputStream(), ServiceType.class);
 			// serviceTypeServices.updateServiceTypeWithHQL(updatedServiceType);
-			serviceTypesServices.updateService(updatedServiceType);
+			serviceTypesServices.updateServiceType(updatedServiceType);
 			resp.setStatus(204);
 		} catch (StreamReadException | DatabindException e) {
 			resp.setStatus(400);
